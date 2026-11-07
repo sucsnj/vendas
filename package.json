@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@capacitor/android": "^8.6.0",
+    "@capacitor/assets": "^4.0.0",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
