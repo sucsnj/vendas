@@ -109,7 +109,7 @@ export function CalculatorInput({ value, onChange, onSubmit }: Props) {
             <button
               type="button"
               onClick={() => handleKey("DEL")}
-              className="rounded-xl border border-teal-700/40 bg-[#122b37] py-3 text-lg font-bold text-white active:scale-95"
+              className="flex items-center justify-center rounded-xl border border-teal-700/40 bg-[#122b37] py-3 text-lg font-bold text-white active:scale-95"
             >
               <Delete className="h-5 w-5" />
             </button>
