@@ -9,21 +9,21 @@ export async function insertSale(data: NewSale) {
   const db = getDb();
   await db.insert(sales).values(data);
   await persistDb();
-  exportLocalBackup().catch(() => {});
+  exportLocalBackup("json", true).catch(() => {});
 }
 
 export async function updateSale(id: string, data: Partial<NewSale>) {
   const db = getDb();
   await db.update(sales).set(data).where(eq(sales.id, id));
   await persistDb();
-  exportLocalBackup().catch(() => {});
+  exportLocalBackup("json", true).catch(() => {});
 }
 
 export async function deleteSale(id: string) {
   const db = getDb();
   await db.delete(sales).where(eq(sales.id, id));
   await persistDb();
-  exportLocalBackup().catch(() => {});
+  exportLocalBackup("json", true).catch(() => {});
 }
 
 export async function getSalesByDay(day: string): Promise<Sale[]> {

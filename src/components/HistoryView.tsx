@@ -69,10 +69,19 @@ export function HistoryView() {
     setToast("Venda excluida");
   }
 
-  async function handleExport() {
+  async function handleExportJson() {
     try {
-      await exportLocalBackup();
-      setToast("Backup exportado");
+      await exportLocalBackup("json");
+      setToast("Backup JSON exportado");
+    } catch {
+      setToast("Erro ao exportar");
+    }
+  }
+
+  async function handleExportXlsx() {
+    try {
+      await exportLocalBackup("xlsx");
+      setToast("Backup XLSX exportado");
     } catch {
       setToast("Erro ao exportar");
     }
@@ -85,8 +94,8 @@ export function HistoryView() {
       await importLocalBackup(file);
       setRefresh((v) => v + 1);
       setToast("Backup importado");
-    } catch {
-      setToast("Erro ao importar");
+    } catch (err) {
+      setToast(err instanceof Error ? err.message : "Erro ao importar");
     } finally {
       if (fileInputRef.current) fileInputRef.current.value = "";
     }
@@ -165,10 +174,16 @@ export function HistoryView() {
       </div>
       <div className="flex gap-2">
         <button
-          onClick={handleExport}
+          onClick={handleExportJson}
           className="flex flex-1 items-center justify-center gap-2 rounded-3xl bg-yellow-400 py-3 text-sm font-black text-slate-950"
         >
-          <Download className="h-4 w-4" /> Exportar Backup
+          <Download className="h-4 w-4" /> Exportar JSON
+        </button>
+        <button
+          onClick={handleExportXlsx}
+          className="flex flex-1 items-center justify-center gap-2 rounded-3xl bg-[#122b37] py-3 text-sm font-bold text-white"
+        >
+          <Download className="h-4 w-4" /> Exportar XLSX
         </button>
         <button
           onClick={() => fileInputRef.current?.click()}
@@ -176,7 +191,7 @@ export function HistoryView() {
         >
           <Upload className="h-4 w-4" /> Importar Backup
         </button>
-        <input ref={fileInputRef} type="file" accept="application/json" className="hidden" onChange={handleImport} />
+        <input ref={fileInputRef} type="file" accept=".json,.xlsx,.xls,application/json,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" className="hidden" onChange={handleImport} />
       </div>
       <Toast message={toast} />
     </div>
