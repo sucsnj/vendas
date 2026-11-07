@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.vendas.app',
-  appName: 'vendas',
+  appName: 'PetCaixa',
   webDir: 'out'
 };
 

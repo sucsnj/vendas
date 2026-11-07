@@ -6,7 +6,7 @@ This version has breaking changes  APIs, conventions, and file structure may al
 
 <!-- END:nextjs-agent-rules -->
 
-# AGENTS.md  Vendas Sales Tracker
+# AGENTS.md  PetCaixa Sales Tracker
 
 ## Stack
 - Next.js 16 (App Router) with `output: 'export'` (SPA/static)
