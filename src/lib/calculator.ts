@@ -5,12 +5,14 @@ export function sanitizeExpression(input: string): string {
   let result = "";
   let hasDecimal = false;
   let decimalCount = 0;
+  let integerCount = 0;
   for (let i = 0; i < cleaned.length; i++) {
     const ch = cleaned[i];
     if (/[+\-*/\s]/.test(ch)) {
       result += ch;
       hasDecimal = false;
       decimalCount = 0;
+      integerCount = 0;
       continue;
     }
     if (ch === "." || ch === ",") {
@@ -23,6 +25,9 @@ export function sanitizeExpression(input: string): string {
     if (hasDecimal) {
       if (decimalCount >= 2) continue;
       decimalCount++;
+    } else {
+      if (integerCount >= 7) continue;
+      integerCount++;
     }
     result += ch;
   }
@@ -79,7 +84,8 @@ export function evaluateExpression(input: string): number | null {
     const result = parseExpression();
     if (i !== s.length) return null;
     if (!isFinite(result)) return null;
-    return Math.round(result * 1e10) / 1e10;
+    const capped = Math.min(Math.max(result, -9999999.99), 9999999.99);
+    return Math.round(capped * 1e10) / 1e10;
   } catch {
     return null;
   }

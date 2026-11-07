@@ -17,14 +17,18 @@
 - [x] Parser reativo
 - [x] Timezone helper
 - [x] Input destacado + keypad expansivel persistente
-- [x] Redesign UI paleta azul/branco
+- [x] Redesign Saga Vision (Deep Teal + Amarelo Canario)
+- [x] Icones lucide-react na UI
 - [x] Virgula e ponto
 - [x] Minimo 2 casas decimais
+- [x] Enter registra venda
 
 ### Fase 4: Edicao/Historico/PWA
 - [x] Edicao vendas passadas
 - [x] Historico agrupado
+- [x] Toast ao registrar/excluir
 - [x] Manifest + Service Worker
+- [x] Icone PetCaixa (SVG) em PWA e Capacitor (npx @capacitor/assets generate)
 
 ### Fase 5: QA
 - [x] Lint ok

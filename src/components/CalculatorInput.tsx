@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { sanitizeExpression, evaluateExpression } from "@/lib/calculator";
+import { Calculator, Delete, ChevronDown, ChevronUp } from "lucide-react";
 
 const KEYPAD_KEY = "calcKeypadOpen";
 
@@ -40,7 +41,10 @@ export function CalculatorInput({ value, onChange, onSubmit }: Props) {
 
   return (
     <div className="space-y-2">
-      <div className="rounded-xl border-2 border-blue-500 bg-blue-950/90 px-4 py-3">
+      <label className="mb-1 flex items-center gap-1 text-sm font-medium text-teal-200/70">
+        <Calculator className="h-4 w-4" /> Valor
+      </label>
+      <div className="rounded-xl border-2 border-yellow-400 bg-[#060e12] px-4 py-3">
         <input
           type="text"
           inputMode="decimal"
@@ -57,27 +61,28 @@ export function CalculatorInput({ value, onChange, onSubmit }: Props) {
         />
       </div>
       <div className="flex items-center justify-between">
-        <span className="text-xs font-medium text-blue-200/70">Previa</span>
-        <span className="text-lg font-extrabold text-blue-300">
+        <span className="text-xs font-medium text-teal-200/70">Previa</span>
+        <span className="text-lg font-extrabold text-teal-400">
           {preview === null ? "\u2014" : preview.toFixed(2).replace(".", ",")}
         </span>
       </div>
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="rounded-lg border border-blue-500/20 bg-blue-500/10 px-3 py-1 text-sm font-medium text-blue-300"
+        className="rounded-lg border border-yellow-400/20 bg-yellow-400/10 px-3 py-1 flex items-center gap-1 text-sm font-medium text-teal-400"
       >
+        {open ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
         {open ? "Ocultar teclado" : "Mostrar teclado"}
       </button>
       {open && (
-        <div className="rounded-2xl border border-blue-900/40 bg-slate-900/60 p-3">
+        <div className="rounded-3xl border border-teal-800/40 bg-[#0e222b]/90 p-3">
           <div className="mb-2 grid grid-cols-4 gap-2">
             {operatorButtons.map((b) => (
               <button
                 key={b}
                 type="button"
                 onClick={() => handleKey(b)}
-                className="rounded-xl bg-blue-500 py-3 text-xl font-bold text-white active:scale-95 active:bg-blue-600"
+                className="rounded-xl bg-yellow-400 py-3 text-xl font-bold text-slate-950 font-black active:scale-95 active:bg-blue-600"
               >
                 {b}
               </button>
@@ -89,7 +94,7 @@ export function CalculatorInput({ value, onChange, onSubmit }: Props) {
                 key={b}
                 type="button"
                 onClick={() => handleKey(b)}
-                className="rounded-xl border border-blue-700/40 bg-blue-900/40 py-3 text-lg font-bold text-white active:scale-95"
+                className="rounded-xl border border-teal-700/40 bg-[#122b37] py-3 text-lg font-bold text-white active:scale-95"
               >
                 {b}
               </button>
@@ -97,16 +102,16 @@ export function CalculatorInput({ value, onChange, onSubmit }: Props) {
             <button
               type="button"
               onClick={() => handleKey("C")}
-              className="rounded-xl border border-blue-700/40 bg-blue-900/40 py-3 text-lg font-bold text-white active:scale-95"
+              className="rounded-xl border border-teal-700/40 bg-[#122b37] py-3 text-lg font-bold text-white active:scale-95"
             >
               C
             </button>
             <button
               type="button"
               onClick={() => handleKey("DEL")}
-              className="rounded-xl border border-blue-700/40 bg-blue-900/40 py-3 text-lg font-bold text-white active:scale-95"
+              className="rounded-xl border border-teal-700/40 bg-[#122b37] py-3 text-lg font-bold text-white active:scale-95"
             >
-              DEL
+              <Delete className="h-5 w-5" />
             </button>
           </div>
         </div>

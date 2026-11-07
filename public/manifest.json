@@ -1,9 +1,16 @@
 {
-  "name": "Vendas",
-  "short_name": "Vendas",
+  "name": "PetCaixa - Registrador Diário",
+  "short_name": "PetCaixa",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#2563eb",
-  "icons": []
+  "background_color": "#081318",
+  "theme_color": "#081318",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
 }
