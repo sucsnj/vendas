@@ -14,6 +14,15 @@ import { Toast } from "./Toast";
 import { exportLocalBackup, importLocalBackup } from "@/lib/backup";
 import { Upload, Download } from "lucide-react";
 
+function formatMonthLabel(month: string) {
+  const [year, monthNumber] = month.split("-").map(Number);
+  const name = new Intl.DateTimeFormat("pt-BR", {
+    month: "long",
+    timeZone: "UTC",
+  }).format(new Date(Date.UTC(year, monthNumber - 1, 1)));
+  return `${year} - ${name.charAt(0).toUpperCase() + name.slice(1)}`;
+}
+
 export function HistoryView() {
   type MonthRow = { month: string; total: number; count: number; avg: number };
   type DayRow = { day: string; total: number; count: number; avg: number };
@@ -115,7 +124,7 @@ export function HistoryView() {
         >
           {months.map((m) => (
             <option key={m.month} value={m.month} className="bg-[#0e222b]/90">
-              {m.month} - Total {Number(m.total).toFixed(2).replace(".", ",")} ({m.count})
+              {formatMonthLabel(m.month)} - Total R$ {Number(m.total).toFixed(2).replace(".", ",")} ({m.count})
             </option>
           ))}
         </select>
@@ -144,7 +153,7 @@ export function HistoryView() {
         >
           {days.map((d) => (
             <option key={d.day} value={d.day} className="bg-[#0e222b]/90">
-              {d.day} - {Number(d.total).toFixed(2).replace(".", ",")} ({d.count})
+              {d.day} - {Number(d.total).toFixed(2).replace(".", ",")} ({d.count})
             </option>
           ))}
         </select>
