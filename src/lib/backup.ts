@@ -1,10 +1,8 @@
 import { Filesystem, Directory, Encoding } from "@capacitor/filesystem";
 import { Capacitor } from "@capacitor/core";
 import * as XLSX from "xlsx";
-import { getConnection, getDb } from "./db/client";
+import { getConnection, getDb, persistDb } from "./db/client";
 import { sales } from "./db/schema";
-
-const DB_NAME = "vendas";
 
 function downloadBlob(data: BlobPart, filename: string, mime: string) {
   if (typeof document === "undefined") return;
@@ -117,11 +115,16 @@ export async function importLocalBackup(file: File) {
         },
       });
     }
+    await persistDb();
     return;
   }
 
   // JSON
   const text = await file.text();
+  const parsed = JSON.parse(text) as { export?: unknown; mode?: string; overwrite?: boolean };
+  const payload = (parsed.export ?? parsed) as { mode?: string; overwrite?: boolean };
+  if (payload.mode === "full") payload.overwrite = true;
+
   const conn = getConnection();
   try {
     if (conn) await conn.close();
@@ -130,13 +133,6 @@ export async function importLocalBackup(file: File) {
   }
   const { CapacitorSQLite, SQLiteConnection } = await import("@capacitor-community/sqlite");
   const sqlite = new SQLiteConnection(CapacitorSQLite);
-  await sqlite.importFromJson(text);
-  if (Capacitor.getPlatform() === "web") {
-    try {
-      await sqlite.saveToStore(DB_NAME);
-    } catch {
-      // ignore
-    }
-  }
+  await sqlite.importFromJson(JSON.stringify(payload));
   window.location.reload();
 }
