@@ -12,6 +12,7 @@
 ### Fase 2: Camada de Dados
 - [x] SQLite provider web/mobile
 - [x] Drizzle schema + init
+- [x] Backup local automatico (export/import)
 
 ### Fase 3: Calculadora e UI
 - [x] Parser reativo
@@ -27,8 +28,9 @@
 - [x] Edicao vendas passadas
 - [x] Historico agrupado
 - [x] Toast ao registrar/excluir
+- [x] Backup export/import + permissao Android
 - [x] Manifest + Service Worker
-- [x] Icone PetCaixa (SVG) em PWA e Capacitor (npx @capacitor/assets generate)
+- [x] Icone PetCaixa
 
 ### Fase 5: QA
 - [x] Lint ok

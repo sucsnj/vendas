@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   getMonthsSummary,
   getDaysInMonth,
@@ -11,6 +11,8 @@ import {
 import type { Sale } from "@/lib/db/schema";
 import { Trash2 } from "lucide-react";
 import { Toast } from "./Toast";
+import { exportLocalBackup, importLocalBackup } from "@/lib/backup";
+import { Upload, Download } from "lucide-react";
 
 export function HistoryView() {
   type MonthRow = { month: string; total: number; count: number; avg: number };
@@ -23,6 +25,7 @@ export function HistoryView() {
   const [sales, setSales] = useState<Sale[]>([]);
   const [refresh, setRefresh] = useState(0);
   const [toast, setToast] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     (async () => {
@@ -64,6 +67,29 @@ export function HistoryView() {
     await deleteSale(id);
     setRefresh((v) => v + 1);
     setToast("Venda excluida");
+  }
+
+  async function handleExport() {
+    try {
+      await exportLocalBackup();
+      setToast("Backup exportado");
+    } catch {
+      setToast("Erro ao exportar");
+    }
+  }
+
+  async function handleImport(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      await importLocalBackup(file);
+      setRefresh((v) => v + 1);
+      setToast("Backup importado");
+    } catch {
+      setToast("Erro ao importar");
+    } finally {
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
   }
 
   return (
@@ -136,6 +162,21 @@ export function HistoryView() {
             </li>
           ))}
         </ul>
+      </div>
+      <div className="flex gap-2">
+        <button
+          onClick={handleExport}
+          className="flex flex-1 items-center justify-center gap-2 rounded-3xl bg-yellow-400 py-3 text-sm font-black text-slate-950"
+        >
+          <Download className="h-4 w-4" /> Exportar Backup
+        </button>
+        <button
+          onClick={() => fileInputRef.current?.click()}
+          className="flex flex-1 items-center justify-center gap-2 rounded-3xl bg-[#122b37] py-3 text-sm font-bold text-white"
+        >
+          <Upload className="h-4 w-4" /> Importar Backup
+        </button>
+        <input ref={fileInputRef} type="file" accept="application/json" className="hidden" onChange={handleImport} />
       </div>
       <Toast message={toast} />
     </div>

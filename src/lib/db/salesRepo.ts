@@ -2,24 +2,28 @@ import { eq, like, sql, desc } from "drizzle-orm";
 import { getDb } from "./client";
 import { sales } from "./schema";
 import { persistDb } from "./client";
+import { exportLocalBackup } from "../backup";
 import type { Sale, NewSale } from "./schema";
 
 export async function insertSale(data: NewSale) {
   const db = getDb();
   await db.insert(sales).values(data);
   await persistDb();
+  exportLocalBackup().catch(() => {});
 }
 
 export async function updateSale(id: string, data: Partial<NewSale>) {
   const db = getDb();
   await db.update(sales).set(data).where(eq(sales.id, id));
   await persistDb();
+  exportLocalBackup().catch(() => {});
 }
 
 export async function deleteSale(id: string) {
   const db = getDb();
   await db.delete(sales).where(eq(sales.id, id));
   await persistDb();
+  exportLocalBackup().catch(() => {});
 }
 
 export async function getSalesByDay(day: string): Promise<Sale[]> {
