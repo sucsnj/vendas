@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { SaleForm } from "@/components/SaleForm";
 import { HistoryView } from "@/components/HistoryView";
+import { Toast } from "@/components/Toast";
 import { getSalesByDay, getDaySummary, deleteSale } from "@/lib/db/salesRepo";
 import { toDayReference } from "@/lib/timezone";
 import type { Sale } from "@/lib/db/schema";
@@ -14,6 +15,7 @@ export default function Home() {
   const [summary, setSummary] = useState({ total: 0, count: 0, avg: 0 });
   const [editing, setEditing] = useState<Sale | null>(null);
   const [refresh, setRefresh] = useState(0);
+  const [toast, setToast] = useState<string | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -28,14 +30,22 @@ export default function Home() {
     };
   }, [day, refresh]);
 
+  useEffect(() => {
+    if (!toast) return;
+    const t = setTimeout(() => setToast(null), 2500);
+    return () => clearTimeout(t);
+  }, [toast]);
+
   async function handleSaved() {
     setEditing(null);
     setRefresh((v) => v + 1);
+    setToast("Venda registrada");
   }
 
   async function handleDelete(id: string) {
     await deleteSale(id);
     setRefresh((v) => v + 1);
+    setToast("Venda excluida");
   }
 
   return (
@@ -141,6 +151,7 @@ export default function Home() {
           <HistoryView />
         )}
       </div>
+      <Toast message={toast} />
     </main>
   );
 }

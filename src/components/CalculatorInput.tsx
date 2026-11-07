@@ -8,12 +8,13 @@ const KEYPAD_KEY = "calcKeypadOpen";
 type Props = {
   value: string;
   onChange: (expr: string) => void;
+  onSubmit?: () => void;
 };
 
 const numberButtons = ["7", "8", "9", "4", "5", "6", "1", "2", "3", "0", ".", ","];
 const operatorButtons = ["/", "*", "-", "+"];
 
-export function CalculatorInput({ value, onChange }: Props) {
+export function CalculatorInput({ value, onChange, onSubmit }: Props) {
   const [open, setOpen] = useState(() => {
     if (typeof window === "undefined") return false;
     return localStorage.getItem(KEYPAD_KEY) === "true";
@@ -45,6 +46,12 @@ export function CalculatorInput({ value, onChange }: Props) {
           inputMode="decimal"
           value={value}
           onChange={(e) => onChange(sanitizeExpression(e.target.value))}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              onSubmit?.();
+            }
+          }}
           placeholder="0"
           className="w-full bg-transparent text-3xl font-extrabold text-white placeholder-blue-300/40 focus:outline-none"
         />

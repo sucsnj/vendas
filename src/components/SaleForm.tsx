@@ -19,8 +19,7 @@ export function SaleForm({ editing, onSaved, onCancelEdit }: Props) {
   const [dayReference, setDayReference] = useState(editing?.dayReference ?? toDayReference());
   const [error, setError] = useState<string | null>(null);
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  async function submit() {
     setError(null);
     const amount = evaluateExpression(expression);
     if (amount === null) {
@@ -51,7 +50,6 @@ export function SaleForm({ editing, onSaved, onCancelEdit }: Props) {
       if (!editing) {
         setExpression("");
         setNote("");
-        setDayReference(toDayReference());
       }
       onSaved();
     } catch (err) {
@@ -60,8 +58,8 @@ export function SaleForm({ editing, onSaved, onCancelEdit }: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <CalculatorInput value={expression} onChange={setExpression} />
+    <form onSubmit={(e) => { e.preventDefault(); submit(); }} className="space-y-4">
+      <CalculatorInput value={expression} onChange={setExpression} onSubmit={submit} />
       <div>
         <label className="mb-1 block text-sm font-medium text-blue-200/70">Observação</label>
         <input

@@ -9,6 +9,7 @@ import {
   deleteSale,
 } from "@/lib/db/salesRepo";
 import type { Sale } from "@/lib/db/schema";
+import { Toast } from "./Toast";
 
 export function HistoryView() {
   type MonthRow = { month: string; total: number; count: number; avg: number };
@@ -20,6 +21,7 @@ export function HistoryView() {
   const [selectedDay, setSelectedDay] = useState<string>("");
   const [sales, setSales] = useState<Sale[]>([]);
   const [refresh, setRefresh] = useState(0);
+  const [toast, setToast] = useState<string | null>(null);
 
   useEffect(() => {
     (async () => {
@@ -51,9 +53,16 @@ export function HistoryView() {
     })();
   }, [selectedDay, refresh]);
 
+  useEffect(() => {
+    if (!toast) return;
+    const t = setTimeout(() => setToast(null), 2500);
+    return () => clearTimeout(t);
+  }, [toast]);
+
   async function handleDelete(id: string) {
     await deleteSale(id);
     setRefresh((v) => v + 1);
+    setToast("Venda excluida");
   }
 
   return (
@@ -126,6 +135,7 @@ export function HistoryView() {
           ))}
         </ul>
       </div>
+      <Toast message={toast} />
     </div>
   );
 }
