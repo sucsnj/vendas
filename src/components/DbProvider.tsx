@@ -10,9 +10,27 @@ export function DbProvider({ children }: { children: React.ReactNode }) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    let cancelled = false;
+    const timer = setTimeout(() => {
+      if (!cancelled) setError("Tempo esgotado ao inicializar o banco");
+    }, 15000);
     initDb()
-      .then(() => setReady(true))
-      .catch((e) => setError(e instanceof Error ? e.message : String(e)));
+      .then(() => {
+        if (!cancelled) {
+          clearTimeout(timer);
+          setReady(true);
+        }
+      })
+      .catch((e) => {
+        if (!cancelled) {
+          clearTimeout(timer);
+          setError(e instanceof Error ? e.message : String(e));
+        }
+      });
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
   }, []);
 
   if (error) {

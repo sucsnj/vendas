@@ -63,28 +63,28 @@ export function SaleForm({ editing, onSaved, onCancelEdit }: Props) {
     <form onSubmit={handleSubmit} className="space-y-4">
       <CalculatorInput value={expression} onChange={setExpression} />
       <div>
-        <label className="mb-1 block text-sm font-medium">Observação</label>
+        <label className="mb-1 block text-sm font-medium text-blue-200/70">Observação</label>
         <input
           type="text"
           value={note}
           onChange={(e) => setNote(e.target.value)}
-          className="w-full rounded-xl border border-gray-300 px-3 py-2 text-base"
+          className="w-full rounded-xl border border-blue-900/40 bg-blue-950/40 px-3 py-2 text-base text-white placeholder-blue-300/40 focus:outline-none focus:ring-1 focus:ring-orange-500"
         />
       </div>
       <div>
-        <label className="mb-1 block text-sm font-medium">Data</label>
+        <label className="mb-1 block text-sm font-medium text-blue-200/70">Data</label>
         <input
           type="date"
           value={dayReference}
           onChange={(e) => setDayReference(e.target.value)}
-          className="w-full rounded-xl border border-gray-300 px-3 py-2 text-base"
+          className="w-full rounded-xl border border-blue-900/40 bg-blue-950/40 px-3 py-2 text-base text-white focus:outline-none focus:ring-1 focus:ring-orange-500"
         />
       </div>
-      {error && <div className="text-sm text-red-600">{error}</div>}
+      {error && <div className="text-sm text-red-400">{error}</div>}
       <div className="flex gap-2">
         <button
           type="submit"
-          className="flex-1 rounded-xl bg-blue-600 py-3 text-base font-bold text-white"
+          className="flex-1 rounded-xl bg-orange-500 py-3.5 text-base font-extrabold text-white shadow-lg shadow-orange-500/25 hover:bg-orange-400"
         >
           {editing ? "Salvar" : "Adicionar"}
         </button>
@@ -92,7 +92,7 @@ export function SaleForm({ editing, onSaved, onCancelEdit }: Props) {
           <button
             type="button"
             onClick={onCancelEdit}
-            className="rounded-xl bg-gray-200 px-4 py-3 text-base font-medium"
+            className="rounded-xl bg-blue-900/40 px-4 py-3.5 text-base font-medium text-blue-200"
           >
             Cancelar
           </button>

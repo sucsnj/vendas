@@ -13,7 +13,8 @@ export async function initDb() {
   const sqlite = new SQLiteConnection(CapacitorSQLite);
 
   if (Capacitor.getPlatform() === "web") {
-    await import("jeep-sqlite");
+    const { defineCustomElements } = await import("jeep-sqlite/loader");
+    defineCustomElements(window);
     const jeep = document.createElement("jeep-sqlite");
     document.body.appendChild(jeep);
     await customElements.whenDefined("jeep-sqlite");

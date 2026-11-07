@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className="min-h-screen bg-gray-50 text-gray-900 antialiased">
+      <body className="min-h-screen bg-slate-950 text-white antialiased">
         <SwRegister />
         <DbProvider>{children}</DbProvider>
       </body>

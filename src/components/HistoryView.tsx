@@ -58,64 +58,67 @@ export function HistoryView() {
 
   return (
     <div className="space-y-4">
-      <div className="rounded-2xl bg-white p-4 shadow-sm">
-        <label className="mb-1 block text-sm font-medium">Mês</label>
+      <div className="rounded-2xl border border-blue-900/60 bg-slate-900 p-4 shadow-blue-950/50">
+        <label className="mb-1 block text-sm font-medium text-blue-200/70">Mês</label>
         <select
           value={selectedMonth}
           onChange={(e) => {
             setSelectedMonth(e.target.value);
             setSelectedDay("");
           }}
-          className="w-full rounded-xl border border-gray-300 px-3 py-2"
+          className="w-full rounded-xl border border-blue-900/40 bg-blue-950/40 px-3 py-2 text-white"
         >
           {months.map((m) => (
-            <option key={m.month} value={m.month}>
+            <option key={m.month} value={m.month} className="bg-slate-900">
               {m.month} — Total {Number(m.total).toFixed(2)} ({m.count})
             </option>
           ))}
         </select>
         <div className="mt-3 grid grid-cols-3 gap-2 text-center text-sm">
-          <div className="rounded-lg bg-gray-100 p-2">
-            <div className="font-bold">{monthSummary.count}</div>
-            <div className="text-gray-500">Qtd</div>
+          <div className="rounded-lg bg-blue-950/40 p-2">
+            <div className="font-bold text-white">{monthSummary.count}</div>
+            <div className="text-[10px] font-bold uppercase text-blue-300/70">Qtd</div>
           </div>
-          <div className="rounded-lg bg-gray-100 p-2">
-            <div className="font-bold">{Number(monthSummary.total).toFixed(2)}</div>
-            <div className="text-gray-500">Total</div>
+          <div className="rounded-lg bg-blue-950/40 p-2">
+            <div className="font-bold text-white">{Number(monthSummary.total).toFixed(2)}</div>
+            <div className="text-[10px] font-bold uppercase text-blue-300/70">Total</div>
           </div>
-          <div className="rounded-lg bg-gray-100 p-2">
-            <div className="font-bold">{Number(monthSummary.avg).toFixed(2)}</div>
-            <div className="text-gray-500">Ticket</div>
+          <div className="rounded-lg bg-blue-950/40 p-2">
+            <div className="font-bold text-orange-400">{Number(monthSummary.avg).toFixed(2)}</div>
+            <div className="text-[10px] font-bold uppercase text-blue-300/70">Ticket</div>
           </div>
         </div>
       </div>
 
-      <div className="rounded-2xl bg-white p-4 shadow-sm">
-        <label className="mb-1 block text-sm font-medium">Dia</label>
+      <div className="rounded-2xl border border-blue-900/60 bg-slate-900 p-4 shadow-blue-950/50">
+        <label className="mb-1 block text-sm font-medium text-blue-200/70">Dia</label>
         <select
           value={selectedDay}
           onChange={(e) => setSelectedDay(e.target.value)}
-          className="w-full rounded-xl border border-gray-300 px-3 py-2"
+          className="w-full rounded-xl border border-blue-900/40 bg-blue-950/40 px-3 py-2 text-white"
         >
           {days.map((d) => (
-            <option key={d.day} value={d.day}>
+            <option key={d.day} value={d.day} className="bg-slate-900">
               {d.day} — {Number(d.total).toFixed(2)} ({d.count})
             </option>
           ))}
         </select>
       </div>
 
-      <div className="rounded-2xl bg-white p-4 shadow-sm">
-        <ul className="divide-y">
+      <div className="rounded-2xl border border-blue-900/60 bg-slate-900 p-4 shadow-blue-950/50">
+        <ul className="divide-y divide-blue-900/30">
           {sales.map((s) => (
-            <li key={s.id} className="flex items-center justify-between py-2">
+            <li key={s.id} className="flex items-center justify-between py-3">
               <div>
-                <div className="font-semibold">{Number(s.amount).toFixed(2)}</div>
-                <div className="text-xs text-gray-500">{s.note}</div>
+                <div className="font-semibold text-white">{Number(s.amount).toFixed(2)}</div>
+                <div className="text-xs text-blue-300/70">{s.note}</div>
+                <span className="mt-1 inline-block rounded border border-orange-500/20 bg-orange-500/10 px-1.5 py-0.5 font-mono text-[11px] text-orange-300/90">
+                  {s.rawExpression}
+                </span>
               </div>
               <button
                 onClick={() => handleDelete(s.id)}
-                className="text-sm text-red-600"
+                className="text-sm font-medium text-red-400"
               >
                 Excluir
               </button>

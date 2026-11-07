@@ -17,6 +17,7 @@
 - [x] Parser reativo
 - [x] Timezone helper
 - [x] Input destacado + keypad expansível persistente
+- [x] Redesign UI paleta azul/branco/laranja mobile-first
 
 ### Fase 4: Edição/Histórico/PWA
 - [x] Edição vendas passadas
