@@ -10,7 +10,7 @@ type Props = {
   onChange: (expr: string) => void;
 };
 
-const numberButtons = ["7", "8", "9", "4", "5", "6", "1", "2", "3", "0", "."];
+const numberButtons = ["7", "8", "9", "4", "5", "6", "1", "2", "3", "0", ".", ","];
 const operatorButtons = ["/", "*", "-", "+"];
 
 export function CalculatorInput({ value, onChange }: Props) {
@@ -30,7 +30,7 @@ export function CalculatorInput({ value, onChange }: Props) {
       onChange("");
       return;
     }
-    if (k === "⌫") {
+    if (k === "DEL") {
       onChange(sanitizeExpression(value.slice(0, -1)));
       return;
     }
@@ -39,10 +39,10 @@ export function CalculatorInput({ value, onChange }: Props) {
 
   return (
     <div className="space-y-2">
-      <div className="rounded-xl border-2 border-orange-500 bg-blue-950/90 px-4 py-3">
+      <div className="rounded-xl border-2 border-blue-500 bg-blue-950/90 px-4 py-3">
         <input
           type="text"
-          inputMode="none"
+          inputMode="decimal"
           value={value}
           onChange={(e) => onChange(sanitizeExpression(e.target.value))}
           placeholder="0"
@@ -50,15 +50,15 @@ export function CalculatorInput({ value, onChange }: Props) {
         />
       </div>
       <div className="flex items-center justify-between">
-        <span className="text-xs font-medium text-blue-200/70">Prévia</span>
-        <span className="text-lg font-extrabold text-orange-400">
-          {preview === null ? "—" : preview}
+        <span className="text-xs font-medium text-blue-200/70">Previa</span>
+        <span className="text-lg font-extrabold text-blue-300">
+          {preview === null ? "\u2014" : preview.toFixed(2).replace(".", ",")}
         </span>
       </div>
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="rounded-lg border border-orange-500/20 bg-orange-500/10 px-3 py-1 text-sm font-medium text-orange-400"
+        className="rounded-lg border border-blue-500/20 bg-blue-500/10 px-3 py-1 text-sm font-medium text-blue-300"
       >
         {open ? "Ocultar teclado" : "Mostrar teclado"}
       </button>
@@ -70,7 +70,7 @@ export function CalculatorInput({ value, onChange }: Props) {
                 key={b}
                 type="button"
                 onClick={() => handleKey(b)}
-                className="rounded-xl bg-orange-500 py-3 text-xl font-bold text-white active:scale-95 active:bg-orange-600"
+                className="rounded-xl bg-blue-500 py-3 text-xl font-bold text-white active:scale-95 active:bg-blue-600"
               >
                 {b}
               </button>
@@ -96,10 +96,10 @@ export function CalculatorInput({ value, onChange }: Props) {
             </button>
             <button
               type="button"
-              onClick={() => handleKey("⌫")}
+              onClick={() => handleKey("DEL")}
               className="rounded-xl border border-blue-700/40 bg-blue-900/40 py-3 text-lg font-bold text-white active:scale-95"
             >
-              ⌫
+              DEL
             </button>
           </div>
         </div>

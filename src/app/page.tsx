@@ -44,7 +44,7 @@ export default function Home() {
         <div className="flex items-center justify-between px-4 py-3">
           <h1 className="text-lg font-extrabold text-white">Vendas</h1>
           <div className="flex items-center gap-1 text-xs text-blue-300/70">
-            <span className="h-2 w-2 animate-pulse rounded-full bg-orange-500" />
+            <span className="h-2 w-2 animate-pulse rounded-full bg-blue-500" />
             Recife (UTC-3)
           </div>
         </div>
@@ -56,7 +56,7 @@ export default function Home() {
             onClick={() => setTab("registrar")}
             className={`flex-1 rounded-xl py-2 text-sm font-semibold ${
               tab === "registrar"
-                ? "bg-orange-500 text-white shadow shadow-orange-500/25"
+                ? "bg-blue-500 text-white shadow shadow-blue-500/25"
                 : "bg-slate-900 text-blue-200/70 border border-blue-900/40"
             }`}
           >
@@ -66,7 +66,7 @@ export default function Home() {
             onClick={() => setTab("historico")}
             className={`flex-1 rounded-xl py-2 text-sm font-semibold ${
               tab === "historico"
-                ? "bg-orange-500 text-white shadow shadow-orange-500/25"
+                ? "bg-blue-500 text-white shadow shadow-blue-500/25"
                 : "bg-slate-900 text-blue-200/70 border border-blue-900/40"
             }`}
           >
@@ -100,11 +100,11 @@ export default function Home() {
                   <div className="text-[10px] font-bold uppercase text-blue-300/70">Qtd Vendas</div>
                 </div>
                 <div className="rounded-lg bg-blue-950/40 p-2 text-center">
-                  <div className="text-lg font-extrabold text-white">{Number(summary.total).toFixed(2)}</div>
+                  <div className="text-lg font-extrabold text-white">{Number(summary.total).toFixed(2).replace(".", ",")}</div>
                   <div className="text-[10px] font-bold uppercase text-blue-300/70">Total do Dia</div>
                 </div>
                 <div className="rounded-lg bg-blue-950/40 p-2 text-center">
-                  <div className="text-lg font-extrabold text-orange-400">{Number(summary.avg).toFixed(2)}</div>
+                  <div className="text-lg font-extrabold text-blue-300">{Number(summary.avg).toFixed(2).replace(".", ",")}</div>
                   <div className="text-[10px] font-bold uppercase text-blue-300/70">Ticket Médio</div>
                 </div>
               </div>
@@ -112,16 +112,16 @@ export default function Home() {
                 {sales.map((s) => (
                   <li key={s.id} className="flex items-center justify-between py-3">
                     <div>
-                      <div className="font-semibold text-white">{Number(s.amount).toFixed(2)}</div>
+                      <div className="font-semibold text-white">{Number(s.amount).toFixed(2).replace(".", ",")}</div>
                       <div className="text-xs text-blue-300/70">{s.note}</div>
-                      <span className="mt-1 inline-block rounded border border-orange-500/20 bg-orange-500/10 px-1.5 py-0.5 font-mono text-[11px] text-orange-300/90">
+                      <span className="mt-1 inline-block rounded border border-blue-500/20 bg-blue-500/10 px-1.5 py-0.5 font-mono text-[11px] text-blue-200/90">
                         {s.rawExpression}
                       </span>
                     </div>
                     <div className="flex gap-3">
                       <button
                         onClick={() => setEditing(s)}
-                        className="text-sm font-medium text-orange-400"
+                        className="text-sm font-medium text-blue-300"
                       >
                         Editar
                       </button>

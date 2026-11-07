@@ -1,13 +1,40 @@
-const ALLOWED = /[^0-9+\-*/.\s]/g;
+const ALLOWED = /[^0-9+\-*/.,\s]/g;
 
 export function sanitizeExpression(input: string): string {
-  let expr = input.replace(ALLOWED, "");
+  const cleaned = input.replace(ALLOWED, "");
+  let result = "";
+  let hasDecimal = false;
+  let decimalCount = 0;
+  for (let i = 0; i < cleaned.length; i++) {
+    const ch = cleaned[i];
+    if (/[+\-*/\s]/.test(ch)) {
+      result += ch;
+      hasDecimal = false;
+      decimalCount = 0;
+      continue;
+    }
+    if (ch === "." || ch === ",") {
+      if (hasDecimal) continue;
+      result += ch;
+      hasDecimal = true;
+      decimalCount = 0;
+      continue;
+    }
+    if (hasDecimal) {
+      if (decimalCount >= 2) continue;
+      decimalCount++;
+    }
+    result += ch;
+  }
+  let expr = result;
   expr = expr.replace(/[+\-*/]{2,}/g, (m) => m[m.length - 1]);
+  expr = expr.replace(/[.,]{2,}/g, (m) => m[m.length - 1]);
   return expr;
 }
 
 export function evaluateExpression(input: string): number | null {
   let s = input.replace(/\s+/g, "");
+  s = s.replace(/,/g, ".");
   s = s.replace(/[+\-*/]+$/, "");
   if (!s) return null;
 
@@ -40,8 +67,10 @@ export function evaluateExpression(input: string): number | null {
       return parseFactor();
     }
     const start = i;
-    while (i < s.length && /[0-9.]/.test(s[i])) i++;
-    const num = parseFloat(s.slice(start, i));
+    while (i < s.length && /[0-9.,]/.test(s[i])) i++;
+    let token = s.slice(start, i).replace(/,/g, ".");
+    if (token === "" || token === ".") token = token === "." ? "0." : "0";
+    const num = parseFloat(token);
     if (isNaN(num)) throw new Error("invalid");
     return num;
   };

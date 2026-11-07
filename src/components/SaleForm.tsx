@@ -68,7 +68,7 @@ export function SaleForm({ editing, onSaved, onCancelEdit }: Props) {
           type="text"
           value={note}
           onChange={(e) => setNote(e.target.value)}
-          className="w-full rounded-xl border border-blue-900/40 bg-blue-950/40 px-3 py-2 text-base text-white placeholder-blue-300/40 focus:outline-none focus:ring-1 focus:ring-orange-500"
+          className="w-full rounded-xl border border-blue-900/40 bg-blue-950/40 px-3 py-2 text-base text-white placeholder-blue-300/40 focus:outline-none focus:ring-1 focus:ring-blue-500"
         />
       </div>
       <div>
@@ -77,14 +77,14 @@ export function SaleForm({ editing, onSaved, onCancelEdit }: Props) {
           type="date"
           value={dayReference}
           onChange={(e) => setDayReference(e.target.value)}
-          className="w-full rounded-xl border border-blue-900/40 bg-blue-950/40 px-3 py-2 text-base text-white focus:outline-none focus:ring-1 focus:ring-orange-500"
+          className="w-full rounded-xl border border-blue-900/40 bg-blue-950/40 px-3 py-2 text-base text-white focus:outline-none focus:ring-1 focus:ring-blue-500"
         />
       </div>
       {error && <div className="text-sm text-red-400">{error}</div>}
       <div className="flex gap-2">
         <button
           type="submit"
-          className="flex-1 rounded-xl bg-orange-500 py-3.5 text-base font-extrabold text-white shadow-lg shadow-orange-500/25 hover:bg-orange-400"
+          className="flex-1 rounded-xl bg-blue-500 py-3.5 text-base font-extrabold text-white shadow-lg shadow-blue-500/25 hover:bg-blue-300"
         >
           {editing ? "Salvar" : "Adicionar"}
         </button>

@@ -2,10 +2,10 @@
 
 ## Status: Completed (build ok)
 
-### Fase 1: Setup & Configuração
+### Fase 1: Setup e Configuracao
 - [x] Next.js + TypeScript + Tailwind
 - [x] output: 'export'
-- [x] Dependências Capacitor/SQLite/Drizzle/jeep-sqlite
+- [x] Dependencias Capacitor/SQLite/Drizzle/jeep-sqlite
 - [x] AGENTS.md
 - [x] PROJECT_STATUS.md
 
@@ -13,15 +13,17 @@
 - [x] SQLite provider web/mobile
 - [x] Drizzle schema + init
 
-### Fase 3: Calculadora & UI
+### Fase 3: Calculadora e UI
 - [x] Parser reativo
 - [x] Timezone helper
-- [x] Input destacado + keypad expansível persistente
-- [x] Redesign UI paleta azul/branco/laranja mobile-first
+- [x] Input destacado + keypad expansivel persistente
+- [x] Redesign UI paleta azul/branco
+- [x] Virgula e ponto
+- [x] Minimo 2 casas decimais
 
-### Fase 4: Edição/Histórico/PWA
-- [x] Edição vendas passadas
-- [x] Histórico agrupado
+### Fase 4: Edicao/Historico/PWA
+- [x] Edicao vendas passadas
+- [x] Historico agrupado
 - [x] Manifest + Service Worker
 
 ### Fase 5: QA

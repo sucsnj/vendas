@@ -70,7 +70,7 @@ export function HistoryView() {
         >
           {months.map((m) => (
             <option key={m.month} value={m.month} className="bg-slate-900">
-              {m.month} — Total {Number(m.total).toFixed(2)} ({m.count})
+              {m.month} - Total {Number(m.total).toFixed(2).replace(".", ",")} ({m.count})
             </option>
           ))}
         </select>
@@ -80,11 +80,11 @@ export function HistoryView() {
             <div className="text-[10px] font-bold uppercase text-blue-300/70">Qtd</div>
           </div>
           <div className="rounded-lg bg-blue-950/40 p-2">
-            <div className="font-bold text-white">{Number(monthSummary.total).toFixed(2)}</div>
+            <div className="font-bold text-white">{Number(monthSummary.total).toFixed(2).replace(".", ",")}</div>
             <div className="text-[10px] font-bold uppercase text-blue-300/70">Total</div>
           </div>
           <div className="rounded-lg bg-blue-950/40 p-2">
-            <div className="font-bold text-orange-400">{Number(monthSummary.avg).toFixed(2)}</div>
+            <div className="font-bold text-blue-300">{Number(monthSummary.avg).toFixed(2).replace(".", ",")}</div>
             <div className="text-[10px] font-bold uppercase text-blue-300/70">Ticket</div>
           </div>
         </div>
@@ -99,7 +99,7 @@ export function HistoryView() {
         >
           {days.map((d) => (
             <option key={d.day} value={d.day} className="bg-slate-900">
-              {d.day} — {Number(d.total).toFixed(2)} ({d.count})
+              {d.day} - {Number(d.total).toFixed(2).replace(".", ",")} ({d.count})
             </option>
           ))}
         </select>
@@ -110,9 +110,9 @@ export function HistoryView() {
           {sales.map((s) => (
             <li key={s.id} className="flex items-center justify-between py-3">
               <div>
-                <div className="font-semibold text-white">{Number(s.amount).toFixed(2)}</div>
+                <div className="font-semibold text-white">{Number(s.amount).toFixed(2).replace(".", ",")}</div>
                 <div className="text-xs text-blue-300/70">{s.note}</div>
-                <span className="mt-1 inline-block rounded border border-orange-500/20 bg-orange-500/10 px-1.5 py-0.5 font-mono text-[11px] text-orange-300/90">
+                <span className="mt-1 inline-block rounded border border-blue-500/20 bg-blue-500/10 px-1.5 py-0.5 font-mono text-[11px] text-blue-200/90">
                   {s.rawExpression}
                 </span>
               </div>

@@ -2,11 +2,11 @@
 
 ## This is NOT the Next.js you know
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
+This version has breaking changes  APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
 
 <!-- END:nextjs-agent-rules -->
 
-# AGENTS.md — Vendas Sales Tracker
+# AGENTS.md  Vendas Sales Tracker
 
 ## Stack
 - Next.js 16 (App Router) with `output: 'export'` (SPA/static)
@@ -17,6 +17,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 ## Rules
 - UTF-8 without BOM, LF line endings.
+- Never use PowerShell to write/edit code (avoids BOM/CRLF); use Write/Edit tools.
 - Mobile-first UI, small screens.
 - All dates normalized to America/Recife for day_reference (YYYY-MM-DD).
 - Timestamps stored as UTC ISO8601.

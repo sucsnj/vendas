@@ -1,4 +1,4 @@
-﻿# sales
+# sales
 - id TEXT PK
 - amount REAL
 - raw_expression TEXT
