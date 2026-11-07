@@ -29,6 +29,28 @@ export function HistoryView() {
 
   useEffect(() => {
     (async () => {
+      const conn = (await import("@/lib/db/client")).getConnection();
+      if (conn) {
+        const open = await conn.isDBOpen();
+        console.log("IS_DB_OPEN", open);
+        try {
+          const r = await conn.exportToJson("full");
+          console.log("EXPORT_OK", Object.keys(r as object));
+        } catch (e) {
+          console.error("EXPORT_ERR", e instanceof Error ? e.message : e);
+        }
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    exportLocalBackup("json")
+      .then(() => console.log("EXPORT_OK"))
+      .catch((e) => console.error("EXPORT_ERR", e instanceof Error ? e.message : e));
+  }, []);
+
+  useEffect(() => {
+    (async () => {
       const m = await getMonthsSummary();
       setMonths(m);
       if (!selectedMonth && m.length) setSelectedMonth(m[m.length - 1].month);

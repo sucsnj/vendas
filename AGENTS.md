@@ -30,3 +30,20 @@ This version has breaking changes  APIs, conventions, and file structure may al
 - lint: npm run lint
 - typecheck: npx tsc --noEmit
 - cap sync: npx cap sync android
+
+## Estrutura
+- src/app: paginas e layout
+- src/components: componentes de UI
+- src/lib: logica, db, backup
+- docs/adr: decisoes de arquitetura
+- docs/arquitetura: visao geral
+- docs/schema: modelo de dados
+
+## Backup
+- Automatico em Documents/PetCaixa_Backups (Android)
+- Manual JSON/XLSX
+- Importacao JSON/XLSX
+
+## Icone
+- public/icon.svg
+- resources/icon.png (Capacitor assets)

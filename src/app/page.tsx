@@ -19,6 +19,33 @@ export default function Home() {
   const [toast, setToast] = useState<string | null>(null);
 
   useEffect(() => {
+    (async () => {
+      const { getConnection } = await import("@/lib/db/client");
+      const conn = getConnection();
+      if (conn) {
+        const open = await conn.isDBOpen();
+        console.log("IS_DB_OPEN", open);
+        try {
+          const r = await conn.exportToJson("full");
+          const payload = (r as { export?: unknown }).export ?? r;
+          const text = JSON.stringify(payload);
+          console.log("EXPORT_PAYLOAD_KEYS", Object.keys(payload as object));
+          console.log("EXPORT_DB", (payload as { database?: unknown }).database);
+          console.log("EXPORT_MODE", (payload as { mode?: unknown }).mode);
+          console.log("EXPORT_VERSION", (payload as { version?: unknown }).version);
+          const sqlite = (await import("@capacitor-community/sqlite")).SQLiteConnection;
+          const cap = (await import("@capacitor-community/sqlite")).CapacitorSQLite;
+          const s = new sqlite(cap);
+          const res = await s.importFromJson(text);
+          console.log("IMPORT_RESULT", JSON.stringify(res));
+        } catch (e) {
+          console.error("IMPORT_ERR", e instanceof Error ? e.message : e);
+        }
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
     let active = true;
     (async () => {
       const [list, sum] = await Promise.all([getSalesByDay(day), getDaySummary(day)]);
