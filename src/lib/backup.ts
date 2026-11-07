@@ -4,6 +4,12 @@ import * as XLSX from "xlsx";
 import { getConnection, getDb, persistDb } from "./db/client";
 import { sales } from "./db/schema";
 
+function notifyDataChanged() {
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new Event("petcaixa:data-changed"));
+  }
+}
+
 function downloadBlob(data: BlobPart, filename: string, mime: string) {
   if (typeof document === "undefined") return;
   const blob = new Blob([data], { type: mime });
@@ -116,6 +122,7 @@ export async function importLocalBackup(file: File) {
       });
     }
     await persistDb();
+    notifyDataChanged();
     return;
   }
 

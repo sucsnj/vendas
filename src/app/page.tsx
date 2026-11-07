@@ -19,6 +19,12 @@ export default function Home() {
   const [toast, setToast] = useState<string | null>(null);
 
   useEffect(() => {
+    const onChange = () => setRefresh((v) => v + 1);
+    window.addEventListener("petcaixa:data-changed", onChange);
+    return () => window.removeEventListener("petcaixa:data-changed", onChange);
+  }, []);
+
+  useEffect(() => {
     let active = true;
     (async () => {
       const [list, sum] = await Promise.all([getSalesByDay(day), getDaySummary(day)]);
